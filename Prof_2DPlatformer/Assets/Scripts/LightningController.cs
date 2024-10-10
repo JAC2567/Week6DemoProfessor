@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeartController : PickUpController
+public class LightningController : PickUpController
 {
-    public int healthVal;
+    public int speedInc;
 
     public override void invClick(GameObject invIconGO) {
         base.invClick(invIconGO);
 
         PlayerController p = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        p.health += healthVal;
+        p.speed += speedInc;
     }
 }

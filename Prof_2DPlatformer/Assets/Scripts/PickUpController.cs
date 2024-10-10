@@ -18,7 +18,7 @@ public class PickUpController : MonoBehaviour
         invMgr = GameObject.Find("Inventory").GetComponent<InventoryManager>();
     }
 
-    public void hide() {
+    public virtual void hide() {
         myRend.enabled = false;
         myTrig.enabled = false;
     }
@@ -26,5 +26,10 @@ public class PickUpController : MonoBehaviour
     public virtual void pickUp() {
         hide();
         invMgr.buildIcon(gameObject);
+    }
+
+    public virtual void invClick(GameObject invIconGO) {
+        print(invIconGO + " clicked on!");
+        Destroy(invIconGO);
     }
 }

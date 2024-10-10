@@ -1,12 +1,13 @@
-﻿using System.Collections;
+﻿﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Icon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
+public class Icon : MonoBehaviour, IDragHandler, 
+    IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    //public string type;
+    public PickUpController pickUpCon;
 
     Transform canvasTransform;
     Transform origParent;
@@ -37,12 +38,8 @@ public class Icon : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData) 
+    public void OnPointerClick(PointerEventData eventData)
     {
-        //right click
-        if(eventData.button == OnPointerClickEventData.InputButton.Right) {
-            
-            Destroy(gameObject);
-        }
+        pickUpCon.invClick(gameObject);
     }
 }

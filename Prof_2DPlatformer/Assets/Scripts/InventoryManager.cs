@@ -6,33 +6,17 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     public GameObject invIconPrefab;
-    //public GameObject lightningPrefab;
-    //public GameObject heartPrefab;
-    //public GameObject starPrefab;
 
     private void Start()
     {
-        //buildHeartIcon();
+     
     }
 
-    /*
-    public void buildLightningIcon()
-    {
-        buildIcon(lightningPrefab, "Lightning");
+    public void toggleShow() {
+        float ys = transform.localScale.y;
+        transform.localScale = new Vector3(1, -1 * ys, 1);
     }
 
-    public void buildHeartIcon()
-    {
-        buildIcon(heartPrefab, "Heart");
-    }
-
-    public void buildStarIcon()
-    {
-        buildIcon(starPrefab, "Star");
-    }
-    */
-
-    //void buildIcon(GameObject prefab, string type)
     public void buildIcon(GameObject pickedUp)
     {
         Transform box = findEmptyBox();
@@ -41,9 +25,7 @@ public class InventoryManager : MonoBehaviour
             print("No room in inventory");
             return;
         }
-        //GameObject g = Instantiate(prefab);
         GameObject g = Instantiate(invIconPrefab);
-        //g.GetComponent<Icon>().type = type;
         g.GetComponent<InventoryManager>().sprite = pickedUp.GetComponent<SpriteRenderer>().sprite;
         g.transform.SetParent(box, false);
     }

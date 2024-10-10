@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D myBod;
     ParticleSystem myPart;
     AudioSource myAudio;
+    Animator myAnim;
 
     InventoryManager invMgr;
 
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         myBod = GetComponent<Rigidbody2D>();
         myPart = GetComponent<ParticleSystem>();
         myAudio = GetComponent<AudioSource>();
+        myAnim = GetComponent<Animator>();
 
         invMgr = GameObject.Find("Inventory").GetComponent<InventoryManager>();
 
@@ -55,6 +57,18 @@ public class PlayerController : MonoBehaviour
         }
 
         myBod.velocity = v;
+
+        //animation and direction
+        if(h > 0) {
+            transform.localScale = new Vector3(-1, 1, 1);
+        } else if(h < 0) {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        myAnim.SetBool("RUNNING", h!=0);
+
+        if(Input.GetButtonDown("Fire1")) {
+            myAnim.SetTrigger("ATTACKING");
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -62,14 +76,12 @@ public class PlayerController : MonoBehaviour
         if(otherGO.name == "Ground") {
             jumpsLeft = maxJumps;
         }
-        else if(otherGO.tag == "Heart") {
-            HeartController heartCon = otherGO.GetComponent<HeartController>();
-            heartCon.hide();
-            health += heartCon.healthVal;
-            invMgr.buildIcon(otherGO);
-        }
-        else {
-            invMgr.buildIcon(otherGO);
+        else if(otherGO.tag == "PickUpAble") {
+            HeartController puCon = otherGO.GetComponent<PickUpController>();
+            puCon.pickUp();
+            //heartCon.hide();
+            //health += heartCon.healthVal;
+            //invMgr.buildIcon(otherGO);
         }
     }
 }
